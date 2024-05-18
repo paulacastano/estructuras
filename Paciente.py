@@ -25,7 +25,7 @@ class Paciente:
     turno_asignado: Cita
     tipo_de_paciente: TipoDePaciente
 
-def __init__(birth_date):
+def __init__( birth_date: str):
     self.birth_date = birth_date
 
 def compare_month_day(date_one, date_two): # (month, day), (month, day)
@@ -43,11 +43,7 @@ def get_age(birth_date):
     edad = (current_date.year - birth_date.year) - compare_month_day((birth_date.month, birth_date.day), (current_date.month, current_date.day)) # si y solo si 
 
 
-class Main:
-    
-    paciente_one = Paciente("2005-04-03")
-    dane = paciente_one.
-
-    
+paciente_one = Paciente(birth_date="2005-04-03")
+print(f"Fecha de nacimiento del paciente: {paciente_one.birth_date}")
 
   
