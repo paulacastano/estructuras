@@ -17,7 +17,7 @@ class TipoDeDocumento(Enum):
 
 class Paciente:
 
-def __init__(self, nombre, apellido, birth_date):
+    def __init__(self, nombre, apellido, birth_date):
         self.nombre = nombre
         self.apellido = apellido
         self.birth_date = birth_date
@@ -63,9 +63,9 @@ def __init__(self, nombre, apellido, birth_date):
 
 
 class main:
-paciente_one = Paciente("2005-04-03")
-dane = paciente_one.compare_month_day
-print(dane)
+    paciente_one = Paciente("2005-04-03")
+    dane = paciente_one.compare_month_day
+    print(dane)
 
 
   
