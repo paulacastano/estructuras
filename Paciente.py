@@ -16,34 +16,56 @@ class TipoDeDocumento(Enum):
 
 
 class Paciente:
-    nombre: str
-    apellido: str
-    documento_de_identidad: TipoDeDocumento
-    birth_date: str
-    edad:int
-    historial_de_citas: list[Cita]
-    turno_asignado: Cita
-    tipo_de_paciente: TipoDePaciente
 
-def __init__( birth_date: str):
-    self.birth_date = birth_date
+def __init__(self, nombre, apellido, birth_date):
+        self.nombre = nombre
+        self.apellido = apellido
+        self.birth_date = birth_date
+        self.edad = self.get_age(birth_date)
+        self.tipo_de_paciente = self.get_tipo_de_paciente(self.edad)
+        self.documento_de_identidad = self.get_documento_de_identidad(self.edad)
+        self.historial_de_citas = []
+        self.turno_asignado = None
 
-def compare_month_day(date_one, date_two): # (month, day), (month, day)
-    if date_one[0] > date_two[0]:
-        return True
-    if date_one[0] == date_two[0]:
-        if date_one[1] > date_two[1]:
+    def compare_month_day(self, date_one, date_two): # (month, day), (month, day)
+        if date_one[0] > date_two[0]:
             return True
-    return False
-        
+        if date_one[0] == date_two[0]:
+            if date_one[1] > date_two[1]:
+                return True
+        return False
 
-def get_age(birth_date):
-    current_date = datetime.now()
-    birth_date = datetime.strptime(birth_date,"%Y-%m-%d")
-    edad = (current_date.year - birth_date.year) - compare_month_day((birth_date.month, birth_date.day), (current_date.month, current_date.day)) # si y solo si 
+    def get_age(self, birth_date):
+        current_date = datetime.now()
+        birth_date = datetime.strptime(birth_date, "%Y-%m-%d")
+        edad = (current_date.year - birth_date.year) - self.compare_month_day((birth_date.month, birth_date.day), (current_date.month, current_date.day))
+        return edad
+    
+    def get_documento_de_identidad(self, edad):
+        if edad >= 18:
+            return "Cedula de Ciudadania"
+        else:
+            return "Tarjeta de Identidad"
+     
+    def get_tipo_de_paciente(self, edad):
+        if edad < 1:
+            return "Neonato"
+        elif edad < 12:
+            return "Infante"
+        elif edad < 18:
+            return "Joven"
+        elif edad < 35:
+            return "Joven Adulto"
+        elif edad < 65:
+            return "Adulto"
+        else:
+            return "Adulto Mayor"
 
 
-paciente_one = Paciente(birth_date="2005-04-03")
-print(f"Fecha de nacimiento del paciente: {paciente_one.birth_date}")
+class main:
+paciente_one = Paciente("2005-04-03")
+dane = paciente_one.compare_month_day
+print(dane)
+
 
   
