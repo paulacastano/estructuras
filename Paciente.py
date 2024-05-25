@@ -1,6 +1,5 @@
 from enum import Enum
-from datetime import date, datetime
-from Cita import Cita
+from datetime import datetime
 
 class TipoDePaciente(Enum):
     NEONATO = "neonato"
