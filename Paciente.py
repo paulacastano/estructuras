@@ -1,70 +1,93 @@
-from enum import Enum
 from datetime import datetime
 
-class TipoDePaciente(Enum):
-    NEONATO = "neonato"
-    INFANTE = "infate"
-    JOVEN = "joven"
-    JOVEN_ADULTO = "joven_adulto"
-    ADULTO = "adulto"
-    ADULTO_MAYOR = "adulto_mayor"
-
-class TipoDeDocumento(Enum):
-    TARJETA_DE_IDENTIDAD =  "Tarjeta de Identidad"
-    CEDULA_DE_CIUDADANIA = "Cedula de ciudadania"
-
-
 class Paciente:
+    nombre: str
+    apellido: str
+    fecha_de_nacimiento: str
+    tipo_de_documento: str
+    documento_de_identidad: str
 
-    def __init__(self, nombre, apellido, birth_date):
+    def __init__(self, nombre, apellido, fecha_de_nacimiento, tipo_de_documento, documento_de_identidad):
         self.nombre = nombre
         self.apellido = apellido
-        self.birth_date = birth_date
-        self.edad = self.get_age(birth_date)
-        self.tipo_de_paciente = self.get_tipo_de_paciente(self.edad)
-        self.documento_de_identidad = self.get_documento_de_identidad(self.edad)
-        self.historial_de_citas = []
-        self.turno_asignado = None
-
-    def compare_month_day(self, date_one, date_two): # (month, day), (month, day)
+        self.fecha_de_nacimiento = fecha_de_nacimiento
+        self.documento_de_identidad = documento_de_identidad
+        self.tipo_de_documento = tipo_de_documento
+    
+    def __str__(self): 
+        return f'''
+        -------------------------[Informacion de la cita]----------------------------
+        > Nombre: {self.get_nombre_completo()}
+        > Documento: {self.get_tipo_de_documento()} ({self.get_documento_de_identidad()})
+        > Fecha de naciemiento: {self.get_fecha_de_nacimiento()}
+        -----------------------------------------------------------------------------
+        '''
+    
+    def compare_month_day(self, date_one, date_two):
         if date_one[0] > date_two[0]:
             return True
         if date_one[0] == date_two[0]:
             if date_one[1] > date_two[1]:
                 return True
         return False
-
-    def get_age(self, birth_date):
-        current_date = datetime.now()
-        birth_date = datetime.strptime(birth_date, "%Y-%m-%d")
-        edad = (current_date.year - birth_date.year) - self.compare_month_day((birth_date.month, birth_date.day), (current_date.month, current_date.day))
-        return edad
     
-    def get_documento_de_identidad(self, edad):
-        if edad >= 18:
-            return "Cedula de Ciudadania"
-        else:
-            return "Tarjeta de Identidad"
+    def get_nombre_completo(self) -> str:
+        return f"{self.nombre} {self.apellido}"
+
+    def get_nombre(self) -> str:
+        return self.nombre
+
+    def set_nombre(self, nombre: str):
+        self.nombre = nombre
+    
+    def get_apellido(self) -> str:
+        return self.apellido
+
+    def set_apellido(self, apellido: str):
+        self.apellido = apellido
+
+    def get_fecha_de_nacimiento(self) -> str:
+        return self.fecha_de_nacimiento
+    
+    def set_fecha_de_nacimiento(self, fecha_de_nacimiento: str):
+        self.fecha_de_nacimiento = fecha_de_nacimiento
+
+    def get_tipo_de_documento(self) -> str:
+        return self.tipo_de_documento
+    
+    def set_tipo_de_documento(self, tipo_de_documento: str):
+        self.tipo_de_documento = tipo_de_documento
+
+    def get_documento_de_identidad(self) -> str:
+        return self.documento_de_identidad
+    
+    def set_documento_de_identidad(self, documento_de_identidad: str):
+        self.documento_de_identidad = documento_de_identidad
+
+    def get_age(self) -> int:
+        current_date = datetime.now()
+        fecha_de_nacimiento = datetime.strptime(self.fecha_de_nacimiento, "%Y-%m-%d")
+        edad = (current_date.year - fecha_de_nacimiento.year) - self.compare_month_day((fecha_de_nacimiento.month, fecha_de_nacimiento.day), (current_date.month, current_date.day))
+        return edad
      
-    def get_tipo_de_paciente(self, edad):
+    def get_tipo_de_paciente(self):
+        edad = self.get_age()
         if edad < 1:
-            return "Neonato"
-        elif edad < 12:
-            return "Infante"
-        elif edad < 18:
-            return "Joven"
-        elif edad < 35:
-            return "Joven Adulto"
-        elif edad < 65:
-            return "Adulto"
-        else:
-            return "Adulto Mayor"
+            return "neonato"
+        
+        if edad < 12:
+            return "infante"
+        
+        if edad < 18:
+            return "joven"
+        
+        if edad < 35:
+            return "joven_adulto"
+        
+        if edad < 65:
+            return "adulto"
+        
+        return "adulto_mayor"
 
-
-class main:
-    paciente_one = Paciente("2005-04-03")
-    dane = paciente_one.compare_month_day
-    print(dane)
-
-
+  
   
