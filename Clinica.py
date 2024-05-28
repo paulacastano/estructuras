@@ -1,8 +1,14 @@
-from datetime import datetime
 from medico import Medico
 from paciente import Paciente
 from planeador_de_citas import PlaneadorDeCitas
 
+def cmp(paciente_uno: Paciente, paciente_dos: Paciente):
+    if paciente_uno.get_nombre_completo() < paciente_dos.get_nombre_completo():
+        return True
+    if paciente_uno.get_nombre_completo() == paciente_dos.get_nombre_completo():
+        if paciente_uno.get_documento_de_identidad() < paciente_dos.get_documento_de_identidad():
+            return True
+    return False
 
 class Clinica:
     pacientes: list[Paciente]
@@ -10,8 +16,47 @@ class Clinica:
     planeador_de_citas: PlaneadorDeCitas = None
     
     def __init__(self, lista_de_medicos):
+        self.pacientes = []
         self.medicos = lista_de_medicos
         self.planeador_de_citas = PlaneadorDeCitas(lista_de_medicos)
+
+    def merge_sort(self, pacientes: list[Paciente]):
+        if len(pacientes) > 1:
+            # Encontrando la mitad de la lista de pacientes
+            mid = len(pacientes) // 2
+
+            # Dividiendo la lista por la mitad en dos partes
+            left_half = pacientes[:mid]
+            right_half = pacientes[mid:]
+
+            # Llamado recursivo para ordenar el lado izquierdo
+            self.merge_sort(left_half)
+
+            # Llamado recursivo para ordenar el lado derecho
+            self.merge_sort(right_half)
+
+            i = j = k = 0
+
+            # Copiando los datos en listas temporales que se llaman left_half[] y right_half[]
+            while i < len(left_half) and j < len(right_half):
+                if cmp(left_half[i], right_half[j]):
+                    pacientes[k] = left_half[i]
+                    i += 1
+                else:
+                    pacientes[k] = right_half[j]
+                    j += 1
+                k += 1
+
+            # termina de copiar los que hacen falta
+            while i < len(left_half):
+                pacientes[k] = left_half[i]
+                i += 1
+                k += 1
+
+            while j < len(right_half):
+                pacientes[k] = right_half[j]
+                j += 1
+                k += 1
 
     def agregar_paciente(self, nombre, apellido, birth_date, tipo_de_documento, documento_de_identidad):
         paciente = self.obtener_paciente(documento_de_identidad)
