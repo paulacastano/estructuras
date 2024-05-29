@@ -65,12 +65,31 @@ class Clinica:
         
         paciente = Paciente(nombre, apellido, birth_date, tipo_de_documento, documento_de_identidad)
         self.pacientes.append(paciente)
+    
+    def obtener_medico(self, registro) -> Medico:
+        for medico in self.medicos:
+            if medico.get_numero_de_registro_medico() == registro:
+                return medico
+        return None
 
     def obtener_paciente(self, documento) -> Paciente:
         for paciente in self.pacientes:
             if paciente.documento_de_identidad == documento:
                 return paciente
         return None
+    
+    def asignar_cita(self, fecha, documento_paciente, registro_medico):
+        paciente = self.obtener_paciente(documento_paciente)
+        if not paciente:
+            raise Exception("Paciente no registrado")
+        
+        medico = self.obtener_medico(registro_medico)
+        if not medico:
+            raise Exception("El medico no se encuentra registrado")
+        
+        return self.planeador_de_citas.asignar_cita(fecha, medico, paciente)
+
+        
 
     def actualizar_paciente(self, documento, nuevos_datos: dict):
         paciente = self.obtener_paciente(documento)
@@ -86,16 +105,29 @@ class Clinica:
         if not paciente:
             raise Exception('El paciente no existe')
         
+        try:
+            self.planeador_de_citas.cancelar_cita(paciente)
+        except Exception:
+            pass
         self.pacientes.remove(paciente)
+    
+    def cancelar_cita(self, documento):
+        paciente = self.obtener_paciente(documento)
+        if not paciente:
+            raise Exception("El paciente no existe")
         
-
-    # def programar_cita(self, cita):
-    #     paciente = self.obtener_paciente(cita.paciente.documento_de_identidad)
-    #     if paciente and not paciente.turno_asignado:
-    #         self.citas.append(cita)
-    #         paciente.turno_asignado = cita
-    #         return True
-    #     return False
+        self.planeador_de_citas.cancelar_cita(paciente)
+    
+    def consultar_cita_por_documento(self, documento: str):
+        paciente = self.obtener_paciente(documento)
+        if not paciente:
+            raise Exception("El paciente no existe")
+        
+        historial_paciente = self.planeador_de_citas.get_historial_de_paciente(documento)
+        if not historial_paciente:
+            raise Exception("El paciente aun no tiene un historial medico")
+        
+        return historial_paciente.cita_actual
 
     # def cancelar_cita(self, documento):
     #     paciente = self.obtener_paciente(documento)

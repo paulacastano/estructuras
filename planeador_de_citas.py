@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 
 from cita import Cita
@@ -5,6 +6,9 @@ from historial_paciente import HistorialDePaciente
 from medico import Medico
 from paciente import Paciente
 
+def es_valida_la_fecha_de_programacion(fecha_programacion):
+    if not re.match("^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$", fecha_programacion):
+        raise Exception('Formato de fecha no valido')
 
 def cmp(cita_uno: Cita, cita_dos: Cita):
     fecha_cita_uno = datetime.strptime(cita_uno.fecha_programacion, "%Y-%m-%d %H:%M")
@@ -24,7 +28,6 @@ class PlaneadorDeCitas:
         for medico in medicos:
             self.gestion_de_medicos[medico.get_numero_de_registro_medico()] = {}
     
-
     def lower_bound(self, cita: Cita) -> int:
         lo = 0
         hi = len(self.citas)
@@ -72,7 +75,8 @@ class PlaneadorDeCitas:
     def get_historial_de_paciente(self, documento_de_identidad: str):
         return self.historial_de_pacientes.get(documento_de_identidad, None)
 
-    def asignar_cita(self, fecha, consultorio, medico: Medico, paciente: Paciente):
+    def asignar_cita(self, fecha, medico: Medico, paciente: Paciente) -> Cita:
+        es_valida_la_fecha_de_programacion(fecha)
         self.archivar_citas()
         now = datetime.now()
         
@@ -90,12 +94,12 @@ class PlaneadorDeCitas:
         if historial_del_paciente.cita_actual:
             raise Exception('Ya tienes una cita asignada')
 
-        nueva_cita = Cita(fecha, consultorio, medico, paciente)
+        nueva_cita = Cita(fecha, medico, paciente)
         
         left = self.lower_bound(nueva_cita)
         right = self.upper_bound(nueva_cita)
         
-        if right - left >= 4:
+        if right - left >= len(self.gestion_de_medicos.keys()):
             raise Exception('No hay disponibilidad de citas')
 
         historial_del_paciente.asignar_cita(nueva_cita)
@@ -107,3 +111,5 @@ class PlaneadorDeCitas:
             self.citas = self.citas + [nueva_cita]
         else: 
             self.citas = self.citas[:right] + [nueva_cita] + self.citas[right:]
+
+        return nueva_cita

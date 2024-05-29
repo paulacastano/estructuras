@@ -1,11 +1,13 @@
 class Medico:
     nombre: str
     apellido: str
+    consultorio: str
     numero_de_registro_medico: int
 
-    def __init__(self, nombre, apellido, numero_de_registro_medico):
+    def __init__(self, nombre, apellido, numero_de_registro_medico, consultorio):
         self.nombre = nombre
         self.apellido = apellido
+        self.consultorio = consultorio
         self.numero_de_registro_medico = numero_de_registro_medico
     
     def get_nombre_completo(self) -> str:
@@ -22,6 +24,9 @@ class Medico:
     
     def set_apellido(self, apellido: str):
         self.apellido = apellido
+    
+    def get_consultorio(self):
+        return self.consultorio
 
     def get_numero_de_registro_medico(self) -> int:
         return self.numero_de_registro_medico

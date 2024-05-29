@@ -27,10 +27,11 @@ class Paciente:
     
     def __str__(self): 
         return f'''
-        -------------------------[Informacion de la cita]----------------------------
+        -------------------------[Informacion del paciente]----------------------------
         > Nombre: {self.get_nombre_completo()}
         > Documento: {self.get_tipo_de_documento()} ({self.get_documento_de_identidad()})
-        > Fecha de naciemiento: {self.get_fecha_de_nacimiento()}
+        > Edad: {self.get_age()}
+        > Fecha de nacimiento: {self.get_fecha_de_nacimiento()}
         -----------------------------------------------------------------------------
         '''
     
