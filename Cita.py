@@ -4,6 +4,10 @@ from datetime import datetime
 from medico import Medico
 from paciente import Paciente
 
+'''
+Esta funcion valida ...
+
+'''
 def es_valida_la_fecha_de_programacion(fecha_programacion):
     if not re.match("^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$", fecha_programacion):
         raise Exception('Formato de fecha no valido')
