@@ -1,7 +1,8 @@
 import os
+import csv
 from medico import Medico
 from clinica import Clinica
-from paciente import Paciente
+
 
 def clear_console():
     # For Windows
@@ -18,6 +19,17 @@ if __name__ == "__main__":
     milena = Medico("Milena", "Restrepo", "231", "201")
     lorena = Medico("Lorena", "Macias", "233", "202")
     clinica = Clinica([carlos, luis, milena, lorena])
+
+    # Ruta al archivo CSV
+    ruta_archivo = 'pacientes.csv'
+
+    # Abrir y leer el archivo CSV
+    with open(ruta_archivo, newline='') as archivo_csv:
+        lector_csv = csv.reader(archivo_csv)
+        for fila in lector_csv:
+            (nombre, apellido, fecha_de_nacimiento, tipo_de_documento, documento) = fila
+            clinica.agregar_paciente(nombre, apellido, fecha_de_nacimiento, tipo_de_documento, documento)
+
     while True:
         menu = f'''
             ----------------------------------------
@@ -60,7 +72,7 @@ if __name__ == "__main__":
             documento = input("Ingrese el documento de identidad: ")
             clear_console()
             try:
-                paciente = clinica.obtener_paciente(documento)
+                paciente = clinica.consultar_paciente(documento)
                 if not paciente:
                     raise Exception("Paciente no registrado")
                 print(paciente)
