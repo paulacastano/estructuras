@@ -20,11 +20,13 @@ class HistorialDePaciente:
             raise Exception('Ya tienes una cita asignada')
         self.cita_actual = cita
     
+    #Vacia la referencia cita actual. 
     def cancelar_cita(self):
         if not self.cita_actual:
             raise Exception('No tienes una cita asignada')
         self.cita_actual = None
     
+    #Toma la cita actual y le realiza un append, para agregar al historial 
     def archivar_cita(self):
         if self.cita_actual:
             self.historial_de_citas.append(self.cita_actual)

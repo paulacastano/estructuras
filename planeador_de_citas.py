@@ -26,6 +26,7 @@ class PlaneadorDeCitas:
             return 0
         return -1
     
+    #Busqueda binaria para encontrar donde esta la primera aparicion de una cita con fechas de programacion iguales (no misma cita)
     def lower_bound(self, cita: Cita) -> int:
         lo = 0
         hi = len(self.citas)
@@ -37,6 +38,7 @@ class PlaneadorDeCitas:
                 hi = mid
         return lo
     
+    #Busqueda binaria para encontrar donde esta la ultima aparicion de una cita con fechas de programacion iguales (no misma cita)
     def upper_bound(self, cita: Cita) -> int:
         lo = 0
         hi = len(self.citas)
@@ -53,7 +55,7 @@ class PlaneadorDeCitas:
 
         while len(self.citas) > 0 and now > datetime.strptime(self.citas[0].fecha_programacion, "%Y-%m-%d %H:%M"):
             paciente = self.citas[0].paciente
-            historial_del_paciente = self.historial_de_citas.get(paciente.documento_de_identidad, None)
+            historial_del_paciente = self.historial_de_pacientes.get(paciente.documento_de_identidad, None)
             historial_del_paciente.archivar_cita()            
             self.citas.pop(0)
             
@@ -69,7 +71,7 @@ class PlaneadorDeCitas:
         historial_del_paciente.cancelar_cita()
         self.gestion_de_medicos[medico.get_numero_de_registro_medico()][fecha] = None
         self.citas.remove(cita)
-
+    
     def get_historial_de_paciente(self, documento_de_identidad: str):
         return self.historial_de_pacientes.get(documento_de_identidad, None)
 
