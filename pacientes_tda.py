@@ -1,4 +1,5 @@
 from paciente import Paciente
+from utilidades import es_valido_el_numero_de_documento
 
 class PacientesTDA:
     pacientes: list[Paciente]
@@ -7,6 +8,7 @@ class PacientesTDA:
         self.pacientes = []
 
     def agregar_paciente(self, nombre, apellido, birth_date, tipo_de_documento, documento_de_identidad):
+        es_valido_el_numero_de_documento(documento_de_identidad)
         paciente = Paciente(nombre, apellido, birth_date, tipo_de_documento, documento_de_identidad)
         self.pacientes.append(paciente)
         self.merge_sort(self.pacientes)
@@ -26,9 +28,11 @@ class PacientesTDA:
                 lo = mid
             else:
                 hi = mid
-            
+
         if self.pacientes[hi].get_documento_de_identidad() == documento:
             return self.pacientes[hi]
+        elif self.pacientes[lo].get_documento_de_identidad() == documento:
+            return self.pacientes[lo]
         
         return None
     
