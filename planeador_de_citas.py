@@ -6,9 +6,11 @@ from medico import Medico
 from paciente import Paciente
 from utilidades import es_valida_la_fecha_de_programacion
 
+#Esta clase maneja la logica de la asignacion de citas y agenda de los medicos 
+
 class PlaneadorDeCitas:
-    citas: list[Cita] = []
-    historial_de_pacientes: dict[str, HistorialDePaciente] = {}
+    citas: list[Cita] = [] #Tendra todas las citas ordenadas 
+    historial_de_pacientes: dict[str, HistorialDePaciente] = {} 
     gestion_de_medicos: dict[str,dict[str, Cita]] = {}
 
     def __init__(self, medicos: list[Medico]) -> None:
@@ -40,7 +42,7 @@ class PlaneadorDeCitas:
         hi = len(self.citas)
         while hi - lo > 1:
             mid = (lo + hi) // 2
-            if cmp(self.citas[mid], cita) >= 0:
+            if self.cmp(self.citas[mid], cita) >= 0:
                 lo = mid
             else:
                 hi = mid
