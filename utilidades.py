@@ -1,3 +1,4 @@
+import os
 import re
 from datetime import datetime
 
@@ -31,3 +32,11 @@ def es_valido_el_numero_de_documento(documento):
     
     if documento[0] == '0':
         raise Exception('El documento no puede empezar por 0')
+
+def clear_console():
+    # For Windows
+    if os.name == 'nt':
+        _ = os.system('cls')
+    # For Unix/Linux/Mac
+    else:
+        _ = os.system('clear')
