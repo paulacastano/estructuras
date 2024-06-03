@@ -3,7 +3,7 @@ from medico import Medico
 from clinica import Clinica
 from utilidades import clear_console
 
-        
+#Instancias de los medico(Cada médico se crea con su respectivo nombre, apellido,número de registro médico y consultorio medico)        
 carlos = Medico("Carlos", "Teyes", "234", "101")
 luis = Medico("Luis", "Arango", "425", "102")
 milena = Medico("Milena", "Restrepo", "231", "201")
@@ -20,6 +20,7 @@ with open(ruta_archivo, newline='') as archivo_csv:
         (nombre, apellido, fecha_de_nacimiento, tipo_de_documento, documento) = fila
         clinica.agregar_paciente(nombre, apellido, fecha_de_nacimiento, tipo_de_documento, documento)
 
+#Ciclo infinito que se utiliza para la cracion de la interfaz de texto del menu
 while True:
     menu = f'''
         ----------------------------------------
