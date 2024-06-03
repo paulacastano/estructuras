@@ -20,7 +20,7 @@ with open(ruta_archivo, newline='') as archivo_csv:
         (nombre, apellido, fecha_de_nacimiento, tipo_de_documento, documento) = fila
         clinica.agregar_paciente(nombre, apellido, fecha_de_nacimiento, tipo_de_documento, documento)
 
-#Ciclo infinito que se utiliza para la cracion de la interfaz de texto del menu
+#Ciclo infinito que se utiliza para la creacion de la interfaz por consola del menu
 while True:
     menu = f'''
         ----------------------------------------

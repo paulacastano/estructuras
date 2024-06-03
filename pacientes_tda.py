@@ -8,7 +8,7 @@ class PacientesTDA:
     '''
     pacientes: list[Paciente]
     
-    def __init__(self): #Contructor queu inicializa una nueva instancia de la clase TDA vacia (sin pacientes)
+    def __init__(self): #Contructor que inicializa una nueva instancia de la clase TDA vacia (sin pacientes)
         self.pacientes = [] #Este atributo almacenará objetos de la clase Paciente que se agreguen a la estructura de datos.
 
     def agregar_paciente(self, nombre, apellido, birth_date, tipo_de_documento, documento_de_identidad):

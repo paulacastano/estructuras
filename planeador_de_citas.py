@@ -14,14 +14,13 @@ class PlaneadorDeCitas:
     Tiene como atributos:
     La lista que contendrá todas las citas médicas ordenadas.
     Un diccionario que mapea los números de documento de identidad de los pacientes a sus historiales médicos.
-    Otro diccionario que mapea los números de registro médico de los médicos a las citas que tienen programadas.
+    Otro diccionario que mapea los números de registro médico de los médicos a otro diccionario con las citas que tienen programadas por fecha.
     '''
     citas: list[Cita] = [] #Tendra todas las citas ordenadas 
     historial_de_pacientes: dict[str, HistorialDePaciente] = {} 
     gestion_de_medicos: dict[str,dict[str, Cita]] = {}
 
     def __init__(self, medicos: list[Medico]) -> None:
-
         '''
         Este es el constructor de la clase PlaneadorDeCitas.
         Se encarga de inicializar la gestión de médicos con un diccionario vacío para cada médico.
@@ -31,7 +30,6 @@ class PlaneadorDeCitas:
             self.gestion_de_medicos[medico.get_numero_de_registro_medico()] = {} #Crea una entrada vacía en el diccionario gestion_de_medicos para cada médico
     
     def cmp(self, cita_uno: Cita, cita_dos: Cita):
-
         '''
         Este metodo se encarga de comparar dos citas basandose en sus fechas de programación.
         Recibe como parametros:
@@ -39,9 +37,9 @@ class PlaneadorDeCitas:
         La segunda cita a comparar.
 
         Retorna:
-        - 1 si la fecha de programación de la primera cita es posterior a la de la segunda cita.
+        - 1 si la fecha de programación de la primera cita es anterior a la de la segunda cita.
         - 0 si las fechas de programación de ambas citas son iguales.
-        - -1 si la fecha de programación de la primera cita es anterior a la de la segunda cita.
+        - -1 si la fecha de programación de la primera cita es posterior a la de la segunda cita.
         '''
         fecha_cita_uno = datetime.strptime(cita_uno.fecha_programacion, "%Y-%m-%d %H:%M") #Convierte las fechas de programación de las citas en objetos datetime
         fecha_cita_dos = datetime.strptime(cita_dos.fecha_programacion, "%Y-%m-%d %H:%M")
@@ -76,7 +74,6 @@ class PlaneadorDeCitas:
         return hi
     
     def archivar_citas(self):
-
         '''
         Este metodo se encarga de archivar las citas que ya han pasado según la fecha actual.
         '''
@@ -89,7 +86,6 @@ class PlaneadorDeCitas:
             self.citas.pop(0) #Eliminar la cita de la lista de citas
             
     def cancelar_cita(self, paciente: Paciente):
-
         '''
         Este metodo cancela la cita actual de un paciente 
         Y recibe como parametro el paciente al cual se le desea cancelar la cita
@@ -110,7 +106,6 @@ class PlaneadorDeCitas:
         return self.historial_de_pacientes.get(documento_de_identidad, None) 
 
     def asignar_cita(self, fecha, medico: Medico, paciente: Paciente) -> Cita:
-
         '''
         Este metodo asigna una cita a un paciente con un médico en una fecha específica.
         Recibe como Parámetros:

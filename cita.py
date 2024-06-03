@@ -16,7 +16,7 @@ class Cita:
         self.medico = medico #Asigna la instancia del médico que atenderá la cita
         self.paciente = paciente # Asigna la instancia del paciente que solicita la cita
 
-    def __str__(self):  # Metodo que especifica como se debera verse el objeto al coonvertirlo en una cadena
+    def __str__(self):  # Metodo que especifica como debera verse el objeto al convertirlo en una cadena
         return f'''
         -------------------------[Informacion de la cita]----------------------------
         > Fecha: {self.fecha_programacion}

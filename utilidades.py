@@ -3,7 +3,6 @@ import re
 from datetime import datetime
 
 def es_valida_la_fecha_de_programacion(fecha_programacion):
-
     '''
     Este método verifica si fecha de programación es válida.
 

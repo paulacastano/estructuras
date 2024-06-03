@@ -3,7 +3,7 @@ from pacientes_tda import PacientesTDA
 from planeador_de_citas import PlaneadorDeCitas
 
 """
-    Representa una clínica que contiene una lista de pacientes, una lista de médicos y un planeador de citas.
+    Esta clase representa una clínica que contiene una lista de pacientes, una lista de médicos y un planeador de citas.
 """
 class Clinica:
     pacientes: PacientesTDA #Una colección de pacientes registrados en la clínica
@@ -63,7 +63,7 @@ class Clinica:
         if not paciente: #Si el paciente no existe, levantar una excepción
             raise Exception('El paciente no existe')
         
-        try: # Intentar cancelar la cita del paciente, si existe alguna
+        try: # Intenta cancelar la cita del paciente, si existe alguna
             self.planeador_de_citas.cancelar_cita(paciente)
         except Exception: #Si levanta la excepcion de que el paciente  no tiene cita asignada, simplemente lo ignoramos
             pass
