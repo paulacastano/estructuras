@@ -2,7 +2,6 @@ from paciente import Paciente
 from utilidades import es_valido_el_numero_de_documento
 
 class PacientesTDA:
-
     '''
     Clase que representa una estructura de datos para almacenar pacientes.Y tiene como atributo
     una lista que contiene objetos de la clase Paciente.
@@ -122,8 +121,8 @@ class PacientesTDA:
                 pacientes[k] = left_half[i]
                 i += 1
                 k += 1
-                
-            #Copiar los elementos restantes de right_half
+
+            #Copia los elementos restantes de right_half
             while j < len(right_half):
                 pacientes[k] = right_half[j]
                 j += 1
