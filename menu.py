@@ -42,14 +42,15 @@ while True:
         ----------------------------------------
     '''
     print(menu)
-    opcion_seleccionada = input("Seleccione una opcion: ")
+    opcion_seleccionada = input("Seleccione una opción: ")
     clear_console()
     if opcion_seleccionada == '1':
-        f'''
+        mensaje = f'''
         -------------------------------------------------
         > A continuacion agregue los datos del paciente <
         -------------------------------------------------
         '''
+        print(mensaje)
         nombre = input("Ingrese el nombre: ")
         apellido = input("Ingrese el apellido: ")
         fecha_de_nacimiento = input("Ingrese la fecha de nacimiento con el formato (yyyy-mm-dd): ")
@@ -67,6 +68,12 @@ while True:
         
 
     elif opcion_seleccionada == '2':
+        mensaje = f'''
+        ---------------------------------------------------------
+        >A continuacion ingrese los datos del paciente a buscar <
+        ---------------------------------------------------------
+        '''
+        print(mensaje)
         documento = input("Ingrese el documento de identidad: ")
         clear_console()
         try:
@@ -81,7 +88,14 @@ while True:
             clear_console()
         
 
-    elif opcion_seleccionada == '3': 
+    elif opcion_seleccionada == '3':
+        mensaje = f'''
+        ---------------------------------------------------
+        > Usted se encuentra en el menu: Eliminar paciente <
+        ---------------------------------------------------
+        '''
+        print(mensaje)
+        
         documento = input("Ingrese el numero del documento del paciente a eliminar: ")
         clear_console()
         try:
@@ -92,7 +106,16 @@ while True:
         finally:
             input("Presione la tecla ENTER para continuar")
             clear_console()
+
     elif opcion_seleccionada == '4':
+        mensaje = f'''
+        -------------------------------------------------------
+        > Usted se encuentra en el menu: Agendar cita
+         Nota: Nuestro horario laboral es de 7:00 a 12:00 pm
+         seleccione un horario en ese rango                   <
+        -------------------------------------------------------
+        '''
+        print(mensaje)
         documento = input("Ingrese el documento del paciente: ")
         registro = input("Ingrese el registro medico: ")
         fecha = input("Ingrese la fecha de la cita con el formato (yyyy-mm-dd hh:mm): ")
@@ -105,6 +128,12 @@ while True:
             input("Presione la tecla ENTER para continuar")
             clear_console()
     elif opcion_seleccionada == '5':
+        mensaje = f'''
+        ---------------------------------------------------------
+        > Usted se encuentra en el menu: Consultar cita actutal <
+        ---------------------------------------------------------
+        '''
+        print(mensaje)
         documento = input("Ingrese el documento del paciente: ")
         try:
             cita = clinica.consultar_cita_por_documento(documento)
@@ -117,6 +146,12 @@ while True:
             input("Presione la tecla ENTER para continuar")
             clear_console()
     elif opcion_seleccionada == '6':
+        mensaje = f'''
+        -------------------------------------------------
+        > Usted se encuentra en el menu: Cancelar cita  <
+        -------------------------------------------------
+        '''
+        print(mensaje)
         documento = input("Ingrese el documento del paciente: ")
         try:
             clinica.cancelar_cita(documento)

@@ -25,7 +25,7 @@ class Paciente:
         > Documento: {self.get_tipo_de_documento()} ({self.get_documento_de_identidad()})
         > Edad: {self.get_age()}
         > Fecha de nacimiento: {self.get_fecha_de_nacimiento()}
-        -----------------------------------------------------------------------------
+        -------------------------------------------------------------------------------
         '''
     
     def compare_month_day(self, date_one, date_two):
