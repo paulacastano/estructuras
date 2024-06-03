@@ -1,10 +1,21 @@
 class Medico:
+    '''
+    Clase que representa a un médico en la clínica.
+    Recibe como atributos:
+    El nombre del médico.
+    El apellido del médico.
+    El consultorio donde atiende el médico.
+    El número de registro médico del médico.
+    '''
     nombre: str
     apellido: str
     consultorio: str
     numero_de_registro_medico: int
 
     def __init__(self, nombre, apellido, numero_de_registro_medico, consultorio):
+        '''
+        Constructor que inicializa una nueva instancia de la clase Medico.
+        '''
         self.nombre = nombre
         self.apellido = apellido
         self.consultorio = consultorio

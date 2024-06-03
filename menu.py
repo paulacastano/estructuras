@@ -1,16 +1,8 @@
-import os
 import csv
 from medico import Medico
 from clinica import Clinica
+from utilidades import clear_console
 
-
-def clear_console():
-    # For Windows
-    if os.name == 'nt':
-        _ = os.system('cls')
-    # For Unix/Linux/Mac
-    else:
-        _ = os.system('clear')
         
 carlos = Medico("Carlos", "Teyes", "234", "101")
 luis = Medico("Luis", "Arango", "425", "102")
