@@ -123,38 +123,39 @@ class PlaneadorDeCitas:
 
         es_valida_la_fecha_de_programacion(fecha) # Verifica que la fecha de programación sea válida
         self.archivar_citas() #Archiva citas pasadas
-        now = datetime.now() #Obtiene la fecha y hora actual
+        now = datetime.now() # Se obtiene la fecha y hora actual
         
-        if now > datetime.strptime(fecha, "%Y-%m-%d %H:%M"):
+        if now > datetime.strptime(fecha, "%Y-%m-%d %H:%M"): #Verifica que la fecha de la cita no esté en el pasado
             raise Exception('No puedes programar una cita en el pasado')
         
-        agenda_medico = self.gestion_de_medicos[medico.get_numero_de_registro_medico()]
-        if fecha in agenda_medico and agenda_medico[fecha] != None:
+        agenda_medico = self.gestion_de_medicos[medico.get_numero_de_registro_medico()] # Se obtiene la agenda del médico
+
+        if fecha in agenda_medico and agenda_medico[fecha] != None: # Verifica que el médico no tenga otra cita a la misma hora
             raise Exception('El medico ya tiene una cita asignada a esa hora')
         
-        if paciente.documento_de_identidad not in self.historial_de_pacientes:
+        if paciente.documento_de_identidad not in self.historial_de_pacientes: #Si el paciente no tiene historial, se crea uno nuevo
             self.historial_de_pacientes[paciente.documento_de_identidad] = HistorialDePaciente(paciente)
         
-        historial_del_paciente = self.historial_de_pacientes[paciente.documento_de_identidad]
-        if historial_del_paciente.cita_actual:
+        historial_del_paciente = self.historial_de_pacientes[paciente.documento_de_identidad] # Se Obtiene el historial del paciente
+        if historial_del_paciente.cita_actual: #Si el paciente ya tiene una cita asignada, lanza una excepción
             raise Exception('Ya tienes una cita asignada')
 
-        nueva_cita = Cita(fecha, medico, paciente)
+        nueva_cita = Cita(fecha, medico, paciente) #Crea una nueva instancia de Cita
         
-        left = self.lower_bound(nueva_cita)
-        right = self.upper_bound(nueva_cita)
+        left = self.lower_bound(nueva_cita) #Encuentra la posición inferior donde insertar la nueva cita
+        right = self.upper_bound(nueva_cita) #Encuentra la posición superior donde insertar la nueva cita
         
-        if right - left >= len(self.gestion_de_medicos.keys()):
+        if right - left >= len(self.gestion_de_medicos.keys()): # Verifica si hay disponibilidad de citas, si no la hay, lanza una excepción
             raise Exception('No hay disponibilidad de citas')
 
-        historial_del_paciente.asignar_cita(nueva_cita)
-        agenda_medico[fecha] = nueva_cita
+        historial_del_paciente.asignar_cita(nueva_cita) #Asigna la nueva cita al historial del paciente
+        agenda_medico[fecha] = nueva_cita #Actualiza la agenda del médico con la nueva cita
 
-        if len(self.citas) and self.cmp(nueva_cita, self.citas[0]) == 1:
+        if len(self.citas) and self.cmp(nueva_cita, self.citas[0]) == 1: # Se inserta la nueva cita en la lista de citas ordenadas
             self.citas = [nueva_cita] + self.citas
         elif len(self.citas) and self.cmp(nueva_cita, self.citas[-1]) == -1:
             self.citas = self.citas + [nueva_cita]
         else: 
             self.citas = self.citas[:right] + [nueva_cita] + self.citas[right:]
 
-        return nueva_cita
+        return nueva_cita #Devuelve la nueva cita asignada
