@@ -3,7 +3,9 @@ from pacientes_tda import PacientesTDA
 from planeador_de_citas import PlaneadorDeCitas
 
 """
-    Esta clase representa una clínica que contiene una lista de pacientes, una lista de médicos y un planeador de citas.
+    Esta clase representa una clínica que contiene una lista de pacientes,
+    una lista de médicos y un planeador de citas.
+    Es la clase que orquesta a todos los objetos(es decir los pone a trabajar junticos)
 """
 class Clinica:
     pacientes: PacientesTDA #Una colección de pacientes registrados en la clínica

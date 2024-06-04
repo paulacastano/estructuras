@@ -21,6 +21,7 @@ with open(ruta_archivo, newline='') as archivo_csv:
         clinica.agregar_paciente(nombre, apellido, fecha_de_nacimiento, tipo_de_documento, documento)
 
 #Ciclo infinito que se utiliza para la creacion de la interfaz por consola del menu
+#Este ciclo permite que el menú se muestre repetidamente hasta que el usuario elija una opción para salir.
 while True:
     menu = f'''
         ----------------------------------------
