@@ -1,7 +1,6 @@
 # tests/test_paciente.py
 
 import unittest
-from datetime import datetime
 from paciente import Paciente
 
 class TestPaciente(unittest.TestCase):

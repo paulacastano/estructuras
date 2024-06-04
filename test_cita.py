@@ -1,7 +1,6 @@
 # tests/test_cita.py
 
 import unittest
-from datetime import datetime
 from cita import Cita
 from medico import Medico
 from paciente import Paciente
