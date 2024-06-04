@@ -13,7 +13,7 @@ class Cita:
         es_valida_la_fecha_de_programacion(fecha_programacion) ## Verifica si la fecha de programación es válida
         self.fecha_solicitud = datetime.now().strftime("%Y-%m-%d %H:%M") #Asigna la fecha actual como fecha de solicitud, en el formato yyyy-mm-dd HH:MM
         self.fecha_programacion = fecha_programacion # Asigna la fecha y hora en la que se programa la cita
-        self.medico = medico #Asigna la instancia del médico que atenderá la cita
+        self.medico = medico #Asigna la instancia del médico que atendera la cita
         self.paciente = paciente # Asigna la instancia del paciente que solicita la cita
 
     def __str__(self):  # Metodo que especifica como debera verse el objeto al convertirlo en una cadena
